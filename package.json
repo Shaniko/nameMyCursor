@@ -1,0 +1,33 @@
+{
+  "name": "namemycursor",
+  "publisher": "Shaniko",
+  "displayName": "nameMyCursor",
+  "description": "Update the Cursor window title to the project name - better organization when working on multiple projects",
+  "version": "0.0.3",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Other"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shaniko/nameMyCursor.git"
+  },
+  "activationEvents": ["onCommand:namemycursor.setTitle"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [{
+      "command": "namemycursor.setTitle",
+      "title": "Set Custom Window Title"
+    }]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "20.x",
+    "typescript": "^5.3.3",
+    "@vscode/vsce": "^2.25.0"
+  }
+}
