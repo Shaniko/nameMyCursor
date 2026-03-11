@@ -1,20 +1,18 @@
 import * as vscode from 'vscode';
 
-// מחזיר את window.title כפי שהוא (אם קיים)
 function getCurrentCustomName(): string | undefined {
   const windowConfig = vscode.workspace.getConfiguration('window');
   const currentTitle = windowConfig.get<string>('title');
   return currentTitle && currentTitle.trim().length > 0 ? currentTitle : undefined;
 }
 
-// מחזיר את צבע ה-Status Bar אם כבר הוגדר
 function getCurrentStatusBarColor(): string | undefined {
   const workbenchConfig = vscode.workspace.getConfiguration('workbench');
-  const colors = workbenchConfig.get<any>('colorCustomizations') || {};
+  const colors = workbenchConfig.get<Record<string, string>>('colorCustomizations') || {};
   return colors['statusBar.background'] || colors['statusBar.noFolderBackground'];
 }
 
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext): void {
   const disposable = vscode.commands.registerCommand('namemycursor.setTitle', async () => {
     const existingName = getCurrentCustomName();
     const existingColor = getCurrentStatusBarColor();
@@ -38,23 +36,26 @@ export function activate(context: vscode.ExtensionContext) {
     const color = await vscode.window.showInputBox({
       prompt: 'HEX Status Bar color (e.g. #ff0077)',
       value: existingColor || '#ff0077',
-      validateInput: (value) =>
-        /^#([0-9a-fA-F]{6})$/.test(value) ? null : 'Please enter HEX in format #rrggbb'
+      validateInput: (value) => {
+        const trimmed = value.trim();
+        return /^#([0-9a-fA-F]{6})$/.test(trimmed) ? null : 'Please enter HEX in format #rrggbb';
+      }
     });
 
     if (!color) {
-      // רק שם חלון עודכן, בלי צבע
       vscode.window.showInformationMessage(`Cool! Window title: ${customName} (no color change).`);
       return;
     }
 
     const workbenchConfig = vscode.workspace.getConfiguration('workbench');
-    const currentColors = workbenchConfig.get<any>('colorCustomizations') || {};
+    const currentColors = workbenchConfig.get<Record<string, string>>('colorCustomizations') || {};
+
+    const normalizedColor = color.trim();
 
     const newColors = {
       ...currentColors,
-      'statusBar.background': color,
-      'statusBar.noFolderBackground': color,
+      'statusBar.background': normalizedColor,
+      'statusBar.noFolderBackground': normalizedColor,
       'statusBar.foreground': '#ffffff'
     };
 
@@ -65,7 +66,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     vscode.window.showInformationMessage(
-      `Cool! Window title: ${customName} | Status Bar Color: ${color}`
+      `Cool! Window title: ${customName} | Status Bar Color: ${normalizedColor}`
     );
   });
 
