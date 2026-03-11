@@ -2,13 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.activate = activate;
 const vscode = require("vscode");
-// מחזיר את window.title כפי שהוא (אם קיים)
 function getCurrentCustomName() {
     const windowConfig = vscode.workspace.getConfiguration('window');
     const currentTitle = windowConfig.get('title');
     return currentTitle && currentTitle.trim().length > 0 ? currentTitle : undefined;
 }
-// מחזיר את צבע ה-Status Bar אם כבר הוגדר
 function getCurrentStatusBarColor() {
     const workbenchConfig = vscode.workspace.getConfiguration('workbench');
     const colors = workbenchConfig.get('colorCustomizations') || {};
@@ -32,23 +30,26 @@ function activate(context) {
         const color = await vscode.window.showInputBox({
             prompt: 'HEX Status Bar color (e.g. #ff0077)',
             value: existingColor || '#ff0077',
-            validateInput: (value) => /^#([0-9a-fA-F]{6})$/.test(value) ? null : 'Please enter HEX in format #rrggbb'
+            validateInput: (value) => {
+                const trimmed = value.trim();
+                return /^#([0-9a-fA-F]{6})$/.test(trimmed) ? null : 'Please enter HEX in format #rrggbb';
+            }
         });
         if (!color) {
-            // רק שם חלון עודכן, בלי צבע
             vscode.window.showInformationMessage(`Cool! Window title: ${customName} (no color change).`);
             return;
         }
         const workbenchConfig = vscode.workspace.getConfiguration('workbench');
         const currentColors = workbenchConfig.get('colorCustomizations') || {};
+        const normalizedColor = color.trim();
         const newColors = {
             ...currentColors,
-            'statusBar.background': color,
-            'statusBar.noFolderBackground': color,
+            'statusBar.background': normalizedColor,
+            'statusBar.noFolderBackground': normalizedColor,
             'statusBar.foreground': '#ffffff'
         };
         await workbenchConfig.update('colorCustomizations', newColors, vscode.ConfigurationTarget.Workspace);
-        vscode.window.showInformationMessage(`Cool! Window title: ${customName} | Status Bar Color: ${color}`);
+        vscode.window.showInformationMessage(`Cool! Window title: ${customName} | Status Bar Color: ${normalizedColor}`);
     });
     context.subscriptions.push(disposable);
 }

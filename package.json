@@ -1,9 +1,9 @@
 {
-  "name": "namemycursor",
-  "publisher": "Shaniko",
-  "displayName": "nameMyCursor",
+  "name": "nameMyCursor",
+  "publisher": "aiShn",
+  "displayName": "Name my cursor window extension",
   "description": "Update the Cursor window title to the project name - better organization when working on multiple projects",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "engines": { "vscode": "^1.85.0" },
   "categories": ["Other"],
   "repository": {
