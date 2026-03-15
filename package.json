@@ -1,24 +1,46 @@
 {
   "name": "nameMyCursor",
   "publisher": "aiShn",
-  "displayName": "Name my cursor window extension",
-  "description": "Update the Cursor window title to the project name - better organization when working on multiple projects",
-  "version": "1.0.0",
+  "displayName": "Name my cursor window",
+  "description": "Name your current Cursor window title - better organization when working on multiple projects",
+  "version": "1.0.2",
+  "icon": "media/nameMyCursorIcon.png",
   "engines": { "vscode": "^1.85.0" },
-  "categories": ["Other"],
+  "categories": ["Theme", "Formatters", "Window naming"],
   "repository": {
     "type": "git",
     "url": "https://github.com/Shaniko/nameMyCursor.git"
   },
+  "homepage": "https://github.com/Shaniko/nameMyCursor",
+  "bugs": {
+    "url": "https://github.com/Shaniko/nameMyCursor/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Shaniko",
+    "email": "shaniko@shaniko.com",
+    "url": "https://github.com/Shaniko"
+  },
   "activationEvents": ["onCommand:namemycursor.setTitle"],
   "main": "./out/extension.js",
+  "keywords": ["cursor", "window title", "status bar color", "project", "organization"],
   "contributes": {
-    "commands": [{
-      "command": "namemycursor.setTitle",
-      "title": "Set Custom Window Title"
-    }]
+    "commands": [
+      {
+        "command": "namemycursor.setTitle",
+        "title": "Set Custom Window Title"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "namemycursor.setTitle",
+        "key": "ctrl+alt+n",
+        "mac": "cmd+alt+n",
+        "when": "editorTextFocus"
+      }
+    ]
   },
-  "scripts": {
+    "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
