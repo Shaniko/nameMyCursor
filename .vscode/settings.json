@@ -1,8 +1,8 @@
 {
     "window.title": "אקסטנשן",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#ff0077",
-        "statusBar.noFolderBackground": "#ff0077",
+        "statusBar.background": "#000ccc",
+        "statusBar.noFolderBackground": "#000ccc",
         "statusBar.foreground": "#ffffff"
     }
 }
