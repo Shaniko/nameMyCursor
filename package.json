@@ -4,12 +4,12 @@
   "displayName": "nameMyCursor",
   "description": "Name your current Cursor window title - better organization when working on multiple projects",
   "version": "1.1.0",
-  "icon": "media/nameMyCursorIcon.png",
+  "icon": "media/myowntitle-Cover.jpg",
   "engines": { "vscode": "^1.85.0" },
   "categories": ["Theme", "Formatters", "Window naming"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Shaniko/nameMyCursor.git"
+    "url": "https://github.com/Shaniko/myowntitle.git"
   },
   "homepage": "https://github.com/Shaniko/nameMyCursor",
   "bugs": {
