@@ -1,7 +1,9 @@
 # nameMyCursor
 Give every Cursor window a clear name and a colorful status bar for instant Alt+Tab recognition.
 
-![nameMyCursor demo](./media/namemycursor.gif)
+# ![nameMyCursor](./media/namemycursor.gif)
+![nameMyCursor](Media/nameMyCursor.gif)
+
 
 ## Why?
 When you have 5+ Cursor windows open, it's hard to remember which one is which.  
